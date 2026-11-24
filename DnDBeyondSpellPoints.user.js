@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DnDBeyond Spell Points
 // @description  Spell point tracker
-// @version      1.4.2
+// @version      1.4.3
 // @author       Mwr247
 // @namespace    Mwr247
 // @homepageURL  https://github.com/Mwr247/DnDBeyondSpellPoints
@@ -128,7 +128,8 @@
         content.addEventListener('click', evt => {
           if (!(evt.target instanceof Element)) {return;}
           const button = evt.target.closest('.ct-spells-spell__action > button');
-          if (!button || !/\bcast\b/i.test(button.textContent)) {return;}
+          // Upcast buttons concatenate their original-level badge with "Cast".
+          if (!button || !/cast\s*$/i.test(button.textContent)) {return;}
           const row = button.closest('.ct-spells-spell');
           const source = row?.querySelector('.ct-spells-spell__meta')?.textContent || '';
           if (!/Artificer|Bard|Cleric|Druid|Paladin|Ranger|Sorcerer|Wizard|Psionic Spells/.test(source)) {
